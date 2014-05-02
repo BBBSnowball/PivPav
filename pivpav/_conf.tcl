@@ -7,6 +7,15 @@ namespace eval ::CONFIG ""
 # ===================================================================== #
 
 
+# Power reporting seems to be different with newer Xilinx ISE versions
+# and I couldn't figure out how to make it work again. If the scripts
+# fail, try to disable this.
+# If you need this, have a look at xpwr. It can generate a pwr report
+# from the ncd and pcf file. However, the format seems to be quite
+# different, so I won't look into that.
+set ::CONFIG::with_power_report 1
+
+
 # ===================================================================== #
 # database
 # ===================================================================== #
@@ -41,8 +50,11 @@ set ::CONFIG::ise_design_goal_dir     "${::CONFIG::bench_dir}/design_goals"
 set ::CONFIG::ise_db_api_file         "ise_db_store.txt"
 set ::CONFIG::ise_design_goal_default "timing_with_phys_synt"
 
-set ::CONFIG::vhdl_compile_cmd [list  "Check Syntax" "Synthesize - XST" "Translate" "Map" "Place & Route" "Generate Power Data" ] 
-# set ::CONFIG::vhdl_compile_cmd [list "Generate Power Data" ] 
+if {$::CONFIG::with_power_report} {
+  set ::CONFIG::vhdl_compile_cmd [list  "Check Syntax" "Synthesize - XST" "Translate" "Map" "Place & Route" "Generate Power Data" ] 
+} else {
+  set ::CONFIG::vhdl_compile_cmd [list  "Check Syntax" "Synthesize - XST" "Translate" "Map" "Place & Route" ]
+}
 set ::CONFIG::xco_compile_cmd [list  "Regenerate Core" ]
 set ::CONFIG::wrapper_ise_error_code    13
 
@@ -134,8 +146,10 @@ set ::CONFIG::report_par_file "${::CONFIG::report_dir}/report_par.tcl"
 set ::CONFIG::report_par_mask "par"
 set ::CONFIG::report_trc_file "${::CONFIG::report_dir}/report_trc.tcl"
 set ::CONFIG::report_trc_mask "twr"
-set ::CONFIG::report_pwr_file "${::CONFIG::report_dir}/report_pwr.tcl"
-set ::CONFIG::report_pwr_mask "pwr"
+if {$::CONFIG::with_power_report} {
+  set ::CONFIG::report_pwr_file "${::CONFIG::report_dir}/report_pwr.tcl"
+  set ::CONFIG::report_pwr_mask "pwr"
+}
 
 set ::CONFIG::report_col_num    5
 set ::CONFIG::report_field_size 22

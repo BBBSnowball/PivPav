@@ -21,17 +21,16 @@ CREATE VIEW d AS
    c_data_type, 
    c_properties,
    measure,
-   power,
    timing,
    place_and_route,
    mapping,
    synthesis
+ LEFT JOIN power ON power.m_id = m_key
  WHERE 
    m_c_key = cir_key and 
    cir_ct_key = ct_key and 
    cir_cdt_key = cdt_key and 
    cir_cp_key = cp_key and
-   power.m_id = m_key and 
    timing.m_id = m_key and
    synthesis.m_id = m_key and
    mapping.m_id = m_key and
