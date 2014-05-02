@@ -218,7 +218,9 @@ proc generate {} {
     puts stderr "xco_file = $::xco_fname_full"
     exit 1
   }
-  set cmd "$coregen -b $::xco_fname_full"
+  set ::cgp_fname_full "$::gen_dir_full/project.cgp"
+  file copy -force $::xco_fname_full $::cgp_fname_full
+  set cmd "$coregen -b $::xco_fname_full -p $::cgp_fname_full"
   set fid [ open "|$cmd" r ]
   fconfigure $fid -blocking false 
   fconfigure $fid -buffering none
