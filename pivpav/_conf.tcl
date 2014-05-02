@@ -148,10 +148,25 @@ set ::CONFIG::bash_config_file "_conf.sh"
 # ===================================================================== #
 # C libraries
 # ===================================================================== #
-#  VMWARE: load /usr/share/tcl8.5/sqlite3/libtclsqlite3.so Sqlite3
-#  load /usr/lib64/tcl8.5/sqlite3/libtclsqlite3.so Sqlite3
-load /scratch/mgrad/localtools/installed/lib/libtclsqlite3.so
-# pvc203: load /home-pc2/user/mgrad/tools/lib/libtclsqlite3.so
+if {[file isfile "/usr/share/tcl8.5/sqlite3/libtclsqlite3.so"]} {
+  # VMWARE:
+  load /usr/share/tcl8.5/sqlite3/libtclsqlite3.so Sqlite3
+} elseif {[file isfile "/usr/lib64/tcl8.5/sqlite3/libtclsqlite3.so"]} {
+  load /usr/lib64/tcl8.5/sqlite3/libtclsqlite3.so Sqlite3
+} elseif {[file isfile "/scratch/mgrad/localtools/installed/lib/libtclsqlite3.so"]} {
+  load /scratch/mgrad/localtools/installed/lib/libtclsqlite3.so
+} elseif {[file isfile "/home-pc2/user/mgrad/tools/lib/libtclsqlite3.so"]} {
+  # pvc203:
+  load /home-pc2/user/mgrad/tools/lib/libtclsqlite3.so
+} elseif {[file isfile "/usr/lib/tcltk/sqlite3/libtclsqlite3.so"]} {
+  # Ubuntu 12.04
+  # (may work for other versions of Debian and Ubuntu)
+  load /usr/lib/tcltk/sqlite3/libtclsqlite3.so
+} else {
+  puts stderr "ERROR: Couldn't find sqlite3 library for TCL!"
+  puts stderr "Please edit pivpav/_conf.tcl to change its path."
+  exit 1
+}
 
 
 # ===================================================================== #
