@@ -1,1 +1,14 @@
-../../api/wrapper/build/wrapper
+#!/bin/sh
+
+# avoid problems due to Xilinx settings script
+export LD_LIBRARY_PATH=
+
+WRAPPER_BUILD_DIR="$(dirname "$0")/../../api/wrapper/build"
+WRAPPER="$WRAPPER_BUILD_DIR/wrapper"
+
+if [ ! -e "$WRAPPER" ] ; then
+	mkdir -p "$WRAPPER_BUILD_DIR"
+	( cd "$WRAPPER_BUILD_DIR" && cmake .. && make wrapper ) >&2 || exit $?
+fi
+
+"$WRAPPER" "$@"
