@@ -54,7 +54,7 @@ proc create_vhdl {} {
   puts [ format "\t %15s %s" "Command: " "$cmd" ]
 
   set t0 [ ::UTILS::time_mark ]
-  set rc [ catch {eval "exec $cmd"} errmsg ]
+  set rc [ catch {eval "exec $cmd"} stderr_msg ]
   puts $::db_fid "M_WRAPPER_CPU_TIME [ ::UTILS::time_from_now $t0 ]" 
   exec sync
   if { $rc==1 && [ string compare $::errorCode "NONE" ]!=0 } {
