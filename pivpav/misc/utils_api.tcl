@@ -1,4 +1,4 @@
-#!/opt/pc2_amd64/FPGA/Xilinx/11.1/ISE/bin/lin64/xtclsh
+#!/usr/bin/env xtclsh
 
 if {  [ namespace exists "::UTILS" ] } { return }
 namespace eval ::UTILS ""
