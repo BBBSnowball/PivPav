@@ -13,7 +13,7 @@ namespace eval ::CONFIG ""
 # If you need this, have a look at xpwr. It can generate a pwr report
 # from the ncd and pcf file. However, the format seems to be quite
 # different, so I won't look into that.
-set ::CONFIG::with_power_report 1
+set ::CONFIG::with_power_report 0
 
 
 # ===================================================================== #
@@ -38,11 +38,13 @@ set ::CONFIG::db_debug           0
 # ===================================================================== #
 # default settings for hardware device when using ise.tcl
 namespace eval SET {
-  set _devicefamily Virtex4
-  set _device       XC4VFX100
-  set _package      FF1152
-  set _speedgrade  -10
+  set _devicefamily zynq
+  set _device       XC7Z020
+  set _package      clg400
+  set _speedgrade  -1
 }
+# not supported for Zynq
+set ::CONFIG::with_power_reduction 0
 
 set ::CONFIG::bench_dir               "benchmark"
 set ::CONFIG::ise_file                "${::CONFIG::bench_dir}/ise.tcl"
