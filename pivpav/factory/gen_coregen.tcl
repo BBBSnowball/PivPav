@@ -456,7 +456,7 @@ if { [ string compare $linked_fname "" ] != 0 || [string compare [info script] $
   parse_args
 
   if {$list_params_flag == 1 } {
-    puts [  exec xtclsh $::xco_gen -list_params  ]
+    puts [  exec xtclsh $::xco_gen_full -list_params  ]
     exit 
   }
 
