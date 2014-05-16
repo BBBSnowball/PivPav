@@ -74,15 +74,36 @@ proc xco_set {param value} {
   switch -glob $param {
     name         { set CSET::_component_name  $value }
     latency { 
-      set CSET::_latency         $value
-      if { $value == 0 } { 
-        set CSET::_has_ce "false"
+      switch $value {
+        maximum {
+          # WARNING: This will probably not work!
+          set CSET::_c_latency -1
+          set CSET::_maximum_latency true
+        }
+        default {
+          set CSET::_c_latency         $value
+          if { $value == 0 } { 
+            set CSET::_has_ce "false"
+          }
+        }
       }
-
+    }
+    fraction {
+      set ::CSET::_c_a_fraction_width      $value
+      set ::CSET::_c_result_fraction_width $value
+    }
+    exponent {
+      set ::CSET::_c_a_exponent_width      $value
+      set ::CSET::_c_result_exponent_width $value
     }
     default     { 
-      set varname [ xco_defmap $param ]; 
-      set $varname $value
+      set varname [ xco_defmap $param ]
+      if { [ string compare $varname "" ] == 0 } {
+        puts stderr "No variables found for parameter: $param";
+        exit 1
+      } else {
+        set $varname $value
+      }
     }
   }
 }
