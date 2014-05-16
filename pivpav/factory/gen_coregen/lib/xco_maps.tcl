@@ -66,6 +66,14 @@ proc xco_defmap { name args } {
   set pat "::CSET::_$name" 
   set var_name ""
 
+  switch $name {
+    devicefamily { return "::SET::_$name" }
+    device       { return "::SET::_$name" }
+    "package"    { return "::SET::_$name" }
+    speedgrade   { return "::SET::_$name" }
+    default      { puts stderr "blub: $name" }
+  }
+
   # try to find exactly match
   set var_name [ xco_varsearch $pat ]
   if { [ llength $var_name ] == 1 } { return $var_name } 
@@ -88,9 +96,9 @@ proc xco_defmap { name args } {
   set size [ llength $var_name ]
   switch $size {
     0 { 
-       # puts stderr "No variables found for pattern: $pat";
-        return ""
-      }
+      #puts stderr "No variables found for pattern: $pat";
+      return ""
+    }
     1 { return $var_name }
     default { 
       puts stderr "Too many variables matching pattern '$pat' were found:"
@@ -107,7 +115,13 @@ proc xco_get {param } {
 }
 
 proc xco_set {param value} {
-  set [ xco_defmap $param ] $value
+  set varname [ xco_defmap $param ]
+  if { [ string compare $varname "" ] == 0 } {
+    puts stderr "No variables found for parameter: $param";
+    exit 1
+  } else {
+    set $varname $value
+  }
 }
 
 # ====================================================================
