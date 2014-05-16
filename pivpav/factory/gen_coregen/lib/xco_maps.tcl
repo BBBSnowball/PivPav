@@ -71,7 +71,7 @@ proc xco_defmap { name args } {
     device       { return "::SET::_$name" }
     "package"    { return "::SET::_$name" }
     speedgrade   { return "::SET::_$name" }
-    default      { puts stderr "blub: $name" }
+    default      { }
   }
 
   # try to find exactly match
