@@ -168,9 +168,9 @@ proc xco_parsers {} {
   if {$::no_compile == 0 } {
     puts [ format "* %-40s %s" "Generate with:" $::xco_gen_rel ]
     puts [ format "* %-40s %s" "Parameters:"    $::xco_params  ]
-    catch { exec xtclsh $::xco_gen_full devicefamily $::SET::_devicefamily \
+    exec xtclsh $::xco_gen_full devicefamily $::SET::_devicefamily \
       device $::SET::_device package $::SET::_package speedgrade $::SET::_speedgrade \
-      $::xco_params > $::xco_fname_full }
+      $::xco_params > $::xco_fname_full
   } else {
     puts [ format "* %-40s %s" "no compilation = Reading configuration:" $::xco_fname_rel ]
     set fid [ open $::xco_fname_full r ]
