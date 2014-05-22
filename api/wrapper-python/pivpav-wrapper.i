@@ -99,3 +99,42 @@
 		if _newclass: registered                = property(isRegistered,              setRegistered)
 	%}
 };
+
+
+%extend Operator {
+	%pythoncode %{
+		def __str__(self):
+			return "%s(%r)" % (self.__class__.__name__, self.name)
+
+		def __repr__(self):
+			properties = ["name", "sequential", "clk_name", "rst_name", "c_e_name",
+				"io_list_size", "pipeline_depth" ]
+			property_values = [ "%s=%r" % (property, getattr(self, property)) for property in properties ]
+			
+			return "%s(%s)" % (self.__class__.__name__, ", ".join(property_values))
+	%}
+}
+
+%extend Signal {
+	%pythoncode %{
+		def __str__(self):
+			return "%s(%r)" % (self.__class__.__name__, self.name)
+
+		def __repr__(self):
+			properties = [ "name", "exception", "sign", "exponent", "mantissa", "cycle", "life_span",
+				"number_of_possible_values", "clk", "rst", "ce", "signed", "unsigned", "registered" ]
+			property_values = [ "%s=%r" % (property, getattr(self, property)) for property in properties ]
+			
+			return "%s(%s)" % (self.__class__.__name__, ", ".join(property_values))
+	%}
+}
+
+%extend std::vector<Signal*> {
+	%pythoncode %{
+		def __str__(self, child_to_string=str):
+			return "[ %s ]" % (", ".join(map(child_to_string, self)))
+
+		def __repr__(self, child_to_string=repr):
+			return self.__str__(child_to_string)
+	%}
+}
