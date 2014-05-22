@@ -91,10 +91,14 @@ proc xco_set {param value} {
     fraction {
       set ::CSET::_c_a_fraction_width      $value
       set ::CSET::_c_result_fraction_width $value
+      set ::CSET::_a_precision_type        "Custom"
+      set ::CSET::_result_precision_type   "Custom"
     }
     exponent {
       set ::CSET::_c_a_exponent_width      $value
       set ::CSET::_c_result_exponent_width $value
+      set ::CSET::_a_precision_type        "Custom"
+      set ::CSET::_result_precision_type   "Custom"
     }
     default     { 
       set varname [ xco_defmap $param ]
