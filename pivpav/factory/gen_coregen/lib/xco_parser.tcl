@@ -21,6 +21,8 @@ namespace eval XCO_PARSER {
   }
   proc GENERATE {} {}
 
+  proc MISC { args } {}
+
   proc parse {fname} {
     set fid [ open $fname r ]
     set data [ read $fid ]

@@ -223,8 +223,6 @@ proc generate {} {
   }
   set ::cgp_fname_full "$::gen_dir_full/project.cgp"
   file copy -force $::xco_fname_full $::cgp_fname_full
-  set backup "$::xco_fname_full.bak"
-  file copy -force $::xco_fname_full $backup
   set cmd "$coregen -b $::xco_fname_full -p $::cgp_fname_full"
   set fid [ open "|$cmd" r ]
   fconfigure $fid -blocking false 
@@ -242,8 +240,6 @@ proc generate {} {
       set isError 0
     }
   }
-  file rename -force $::xco_fname_full "$::xco_fname_full-after-coregen.xco"
-  file rename -force $backup $::xco_fname_full
   cd $savePWD
 
   if {$isError == 1 } {
