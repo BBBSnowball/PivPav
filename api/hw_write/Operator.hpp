@@ -69,7 +69,7 @@ public:
 	 * @param name  the name of the signal
 	 * @param width the number of bits of the signal.
 	 */
-	void addInput  (const std::string name, const int width=1);
+	void addInput  (const std::string name, const int width=1) throw(std::string);
 
   void addPort(
     const std::string name, const int width, 
@@ -77,7 +77,8 @@ public:
     bool isRst,    bool isCE, 
     bool isSigned, bool isUnsigned, 
     bool isFP,     int  exp_sz,
-    int  fra_sz,   bool isRegistered);
+    int  fra_sz,   bool isRegistered)
+    throw(std::string);
 
 
 	/** Adds an output signal to the operator.
@@ -86,7 +87,8 @@ public:
 	 * @param width the number of bits of the signal.
 	 * @param numberOfPossibleOutputValues (optional, defaults to 1) set to 2 for a faithfully rounded operator for instance
 	 */	
-	void addOutput(const std::string name, const int width=1, const int numberOfPossibleOutputValues=1);
+	void addOutput(const std::string name, const int width=1, const int numberOfPossibleOutputValues=1)
+		throw(std::string);
 	
 
 	/** Adds a floating point input signal to the operator.
@@ -169,7 +171,7 @@ public:
 	 * @param name is the signal name. It must have been defined before 
 	 * @param report is a boolean, if true it will report the cycle 
 	 */
-	void setCycleFromSignal(string name, bool report=false) ;
+	void setCycleFromSignal(string name, bool report=false) throw(std::string);
 
 	/** advance the current cycle to that of a signal. It may only increase current cycle. To synchronize
 		 two or more signals, first call setCycleFromSignal() on the
@@ -178,7 +180,7 @@ public:
 		 * @param name is the signal name. It must have been defined before 
 		 * @param report is a boolean, if true it will report the cycle 
 		 */
-	void syncCycleFromSignal(string name, bool report=true) ;
+	void syncCycleFromSignal(string name, bool report=true) throw(std::string);
 
 
 	/** Declares a signal implicitely by having it appearing on the Left Hand Side of a VHDL assignment
@@ -187,7 +189,7 @@ public:
 	 * @param isbus: a signal of width 1 is declared as std_logic when false, as std_logic_vector when true (optional, default false)
 	 * @return name
 	 */
-	string declare(string name, const int width=1, bool isbus=false);
+	string declare(string name, const int width=1, bool isbus=false) throw(std::string);
 	// TODO: add methods that allow for signals with reset (when rewriting LongAcc for the new framework)
 
 
@@ -195,7 +197,7 @@ public:
 	 * @param name is the name of the signal
 	 * @return name
 	 */
-	string use(string name);
+	string use(string name) throw(std::string);
 
 
 	/** Declare an output mapping for an instance of a sub-component
@@ -205,21 +207,21 @@ public:
 	 * @param actualSignalName is the name of the signal in This mapped to this port
 	 * @return name
 	 */
-	void outPortMap(Operator* op, string componentPortName, string actualSignalName);
+	void outPortMap(Operator* op, string componentPortName, string actualSignalName) throw(std::string);
 
 
 	/** use a signal as input of a subcomponent
 	 * @param componentPortName is the name of the port on the component
 	 * @param actualSignalName is the name of the signal (of this) mapped to this port
 	 */
-	void inPortMap(Operator* op, string componentPortName, string actualSignalName);
+	void inPortMap(Operator* op, string componentPortName, string actualSignalName) throw(std::string);
 
 
 	/** use a constant signal as input of a subcomponent. 
 	 * @param componentPortName is the name of the port on the component
 	 * @param actualSignal is the constant signal to be mapped to this port
 	 */
-	void inPortMapCst(Operator* op, string componentPortName, string actualSignal);
+	void inPortMapCst(Operator* op, string componentPortName, string actualSignal) throw(std::string);
 
 
 	/** returns the VHDL for an instance of a sub-component. 
@@ -313,7 +315,7 @@ public:
 	  * @param s then name of the signal we want to return
 	  * @return the pointer to the signal having name s 
 	  */
-	Signal* getSignalByName(string s);
+	Signal* getSignalByName(string s) throw(std::string);
 
   int setClk(std::string);
   int rmClk();

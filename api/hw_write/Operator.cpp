@@ -37,7 +37,8 @@ Operator::addPort(
   bool isRst,    bool isCE, 
   bool isSigned, bool isUnsigned, 
   bool isFP,     int  exp_sz,
-  int  fra_sz,   bool isRegistered) 
+  int  fra_sz,   bool isRegistered)
+  throw(std::string)
 {
 
 	if (signalMap_.find(name) != signalMap_.end()) {
@@ -86,7 +87,7 @@ Operator::addPort(
 	numberOfInputs_ ++;
 }
 
-void Operator::addInput(const std::string name, const int width) {
+void Operator::addInput(const std::string name, const int width) throw(std::string) {
 	if (signalMap_.find(name) != signalMap_.end()) {
 		std::ostringstream o;
 		o << "ERROR in addInput, signal " << name<< " seems to already exist";
@@ -103,7 +104,8 @@ void Operator::addInput(const std::string name, const int width) {
 	numberOfInputs_ ++;
 }
 
-void Operator::addOutput(const std::string name, const int width, const int numberOfPossibleOutputValues) {
+void Operator::addOutput(const std::string name, const int width, const int numberOfPossibleOutputValues)
+		throw(std::string) {
 	if (signalMap_.find(name) != signalMap_.end()) {
 		std::ostringstream o;
 		o << "ERROR in addInput, signal " << name << " seems to already exist";
@@ -144,7 +146,7 @@ void Operator::addFPOutput(const std::string name, const int wE, const int wF, c
 }
 
 
-Signal * Operator::getSignalByName(string name) {
+Signal * Operator::getSignalByName(string name) throw(std::string) {
 	ostringstream e;
 	if(signalMap_.find(name) ==  signalMap_.end()) {
 		e << "ERROR in getSignalByName, signal " << name<< " not declared";
@@ -413,7 +415,7 @@ void Operator::nextCycle(bool report) {
 }
 
 
-void Operator::setCycleFromSignal(string name, bool report) {
+void Operator::setCycleFromSignal(string name, bool report) throw(std::string) {
 	ostringstream e;
 	e << "ERROR in syncCycleFromSignal, "; // just in case
 
@@ -442,7 +444,7 @@ void Operator::setCycleFromSignal(string name, bool report) {
 }
 
 
-void Operator::syncCycleFromSignal(string name, bool report) {
+void Operator::syncCycleFromSignal(string name, bool report) throw(std::string) {
 	ostringstream e;
 	e << "ERROR in syncCycleFromSignal, "; // just in case
 
@@ -475,7 +477,7 @@ void Operator::syncCycleFromSignal(string name, bool report) {
 
 
 
-string Operator::declare(string name, const int width, bool isbus) {
+string Operator::declare(string name, const int width, bool isbus) throw(std::string) {
 	Signal* s;
 	ostringstream e;
 	// check the signals doesn't already exist
@@ -496,7 +498,7 @@ string Operator::declare(string name, const int width, bool isbus) {
 
 
 
-string Operator::use(string name) {
+string Operator::use(string name) throw(std::string) {
 	ostringstream e;
 	e << "ERROR in use(), "; // just in case
 	
@@ -527,7 +529,7 @@ string Operator::use(string name) {
 }
 
 
-void Operator::outPortMap(Operator* op, string componentPortName, string actualSignalName){
+void Operator::outPortMap(Operator* op, string componentPortName, string actualSignalName) throw(std::string) {
 	Signal* formal;
 	Signal* s;
 	ostringstream e;
@@ -565,7 +567,7 @@ void Operator::outPortMap(Operator* op, string componentPortName, string actualS
 }
 
 
-void Operator::inPortMap(Operator* op, string componentPortName, string actualSignalName){
+void Operator::inPortMap(Operator* op, string componentPortName, string actualSignalName) throw(std::string) {
 	Signal* formal;
 	ostringstream e;
 	string name;
@@ -616,7 +618,7 @@ void Operator::inPortMap(Operator* op, string componentPortName, string actualSi
 
 
 
-void Operator::inPortMapCst(Operator* op, string componentPortName, string actualSignal){
+void Operator::inPortMapCst(Operator* op, string componentPortName, string actualSignal) throw(std::string) {
 	Signal* formal;
 	ostringstream e;
 	string name;

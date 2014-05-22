@@ -109,7 +109,7 @@ string Signal::toVHDLDeclaration() {
 	return o.str();
 }
 
-Signal Signal::getSubSignal(int low, int high)
+Signal Signal::getSubSignal(int low, int high) throw(std::string)
 {
 	if (low < low_)
 		throw string("Attempted to return subsignal with smaller low index.");
@@ -124,28 +124,28 @@ Signal Signal::getSubSignal(int low, int high)
 		return s;
 }
 	
-Signal Signal::getException()
+Signal Signal::getException() throw(std::string)
 {
 	if (!isFP_)
 		throw string("Not a floating point signal.");
 	return getSubSignal(1+wE_+wF_, 2+wE_+wF_);
 }
 
-Signal Signal::getSign()
+Signal Signal::getSign() throw(std::string)
 {
 	if (!isFP_)
 			throw string("Not a floating point signal.");
 	return getSubSignal(wE_+wF_, wE_+wF_);
 }
 
-Signal Signal::getExponent()
+Signal Signal::getExponent() throw(std::string)
 {
 	if (!isFP_)
 		throw string("Not a floating point signal.");
 	return getSubSignal(wF_, wE_+wF_-1);
 }
 
-Signal Signal::getMantissa()
+Signal Signal::getMantissa() throw(std::string)
 {
 	if (!isFP_)
 		throw string("Not a floating point signal.");

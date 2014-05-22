@@ -112,28 +112,28 @@ public:
 	 * @param high the high index of the subsignal
 	 * @return the corresponding subsignal
 	 */	
-	Signal getSubSignal(int low, int high);
+	Signal getSubSignal(int low, int high) throw(std::string);
 	
 	/** Returns a subsignal containing the exception bits of this signal
 	 * @return the corresponding subsignal
 	 */	
-	Signal getException();
+	Signal getException() throw(std::string);
 
 	/** Returns a subsignal containing the sign bit of this signal
 	 * @return the corresponding subsignal
 	 */	
-	Signal getSign();
+	Signal getSign() throw(std::string);
 
 	/** Returns a subsignal containing the exponent bits of this signal
 	 * @return the corresponding subsignal
 	 */	
-	Signal getExponent();
+	Signal getExponent() throw(std::string);
 
 
 	/** Returns a subsignal containing the fraction bits of this signal
 	 * @return the corresponding subsignal
 	 */	
-	Signal getMantissa();
+	Signal getMantissa() throw(std::string);
 
 
 
