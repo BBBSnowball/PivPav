@@ -65,7 +65,7 @@ string Signal::toVHDL() {
 		o << "std_logic" ;
 	else 
 		if(isFP_) 
-			o << " std_logic_vector(" << wE() <<"+"<<wF() << "+2 downto 0)";
+			o << " std_logic_vector(" << wE() << "+" << wF() << "-1" << " downto 0)";
 		else
 			o << " std_logic_vector(" << width()-1 << " downto 0)";
 	return o.str();
