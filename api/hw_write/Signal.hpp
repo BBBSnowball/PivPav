@@ -117,7 +117,7 @@ public:
 	/** Returns a subsignal containing the exception bits of this signal
 	 * @return the corresponding subsignal
 	 */	
-	Signal getException() throw(std::string);
+	//Signal getException() throw(std::string);
 
 	/** Returns a subsignal containing the sign bit of this signal
 	 * @return the corresponding subsignal

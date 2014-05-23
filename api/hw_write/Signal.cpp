@@ -11,7 +11,7 @@ Signal::Signal(const string name, const Signal::SignalType type, const int width
 }
 
 Signal::Signal(const string name, const Signal::SignalType type, const int wE, const int wF) : 
-	name_(name), type_(type), width_(wE+wF+3), numberOfPossibleValues_(1), lifeSpan_(0), cycle_(0),
+	name_(name), type_(type), width_(wE+wF), numberOfPossibleValues_(1), lifeSpan_(0), cycle_(0),
 	isFP_(true), wE_(wE), wF_(wF), isSubSignal_(false),
 	low_(0), high_(width_-1), isBus_(false)
 {
@@ -124,32 +124,32 @@ Signal Signal::getSubSignal(int low, int high) throw(std::string)
 		return s;
 }
 	
-Signal Signal::getException() throw(std::string)
+/*Signal Signal::getException() throw(std::string)
 {
 	if (!isFP_)
 		throw string("Not a floating point signal.");
 	return getSubSignal(1+wE_+wF_, 2+wE_+wF_);
-}
+}*/
 
 Signal Signal::getSign() throw(std::string)
 {
 	if (!isFP_)
 			throw string("Not a floating point signal.");
-	return getSubSignal(wE_+wF_, wE_+wF_);
+	return getSubSignal(wE_+(wF_-1), wE_+(wF_-1));
 }
 
 Signal Signal::getExponent() throw(std::string)
 {
 	if (!isFP_)
 		throw string("Not a floating point signal.");
-	return getSubSignal(wF_, wE_+wF_-1);
+	return getSubSignal(wF_, wE_+(wF_-1)-1);
 }
 
 Signal Signal::getMantissa() throw(std::string)
 {
 	if (!isFP_)
 		throw string("Not a floating point signal.");
-	return getSubSignal(0, wF_-1);
+	return getSubSignal(0, (wF_-1)-1);
 }
 
 

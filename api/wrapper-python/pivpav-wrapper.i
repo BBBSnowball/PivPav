@@ -62,8 +62,8 @@
 	%pythoncode %{
 		__swig_getmethods__["name"]                      = getName
 		if _newclass: name                      = property(getName)
-		__swig_getmethods__["exception"]                 = getException
-		if _newclass: exception                 = property(getException)
+		#__swig_getmethods__["exception"]                 = getException
+		#if _newclass: exception                 = property(getException)
 		__swig_getmethods__["sign"]                      = getSign
 		if _newclass: sign                      = property(getSign)
 		__swig_getmethods__["exponent"]                  = getExponent
@@ -121,8 +121,12 @@
 			return "%s(%r)" % (self.__class__.__name__, self.name)
 
 		def __repr__(self):
-			properties = [ "name", "exception", "sign", "exponent", "mantissa", "cycle", "life_span",
+			properties = [ "name", "cycle", "life_span",
 				"number_of_possible_values", "clk", "rst", "ce", "signed", "unsigned", "registered" ]
+			#floating_point_properties = [ "sign", "exponent", "mantissa" ]
+			#if self.isFP():
+			#	properties.extend(floating_point_properties)
+
 			property_values = [ "%s=%r" % (property, getattr(self, property)) for property in properties ]
 			
 			return "%s(%s)" % (self.__class__.__name__, ", ".join(property_values))
