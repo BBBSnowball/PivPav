@@ -7,8 +7,18 @@ DBNAME=gen_output/pivpav.db
 set -e
 
 mkdir -p "$(dirname $DBNAME)"
-../pivpav/library/create-schema.tcl | sqlite3 $DBNAME
-../pivpav/factory/gen_coregen.tcl -db $DBNAME fpadd fraction 53 exponent 11
-../pivpav/benchmark/bench.tcl 1
-../pivpav/library/insert-measure.tcl -db gen_output/pivpav.db gen_output/_db_circuits/measure_db_store.txt
-../pivpav/library/insert-reports.tcl -m_id 1 -db $DBNAME gen_output/_db_circuits/ise
+if [ ! -e "$DBNAME" ] ; then
+	../pivpav/library/create-schema.tcl | sqlite3 $DBNAME
+fi
+
+ARGS="$*"
+if [ -z "$ARGS" ] ; then
+	ARGS="fpadd fraction 53 exponent 11"
+fi
+
+../pivpav/factory/gen_coregen.tcl -db "$DBNAME" -write_rowid "rowid" $ARGS
+ROWID="$(cat rowid)"
+../pivpav/benchmark/bench.tcl $ROWID
+../pivpav/library/insert-measure.tcl -db "$DBNAME" -write_rowid "m_rowid" gen_output/_db_circuits/measure_db_store.txt
+M_ROWID="$(cat m_rowid)"
+../pivpav/library/insert-reports.tcl -m_id $M_ROWID -db $DBNAME gen_output/_db_circuits/ise

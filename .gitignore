@@ -3,3 +3,5 @@ gen_output
 _conf.sh
 /api/*/build
 *.sublime-workspace
+/example/rowid
+/example/m_rowid

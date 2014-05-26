@@ -174,6 +174,8 @@ proc ::INSERT_DB::parse_args {} {
   set ::ports_val ""
   set ::src_fname ""
   set ::no_files_flag 0
+  set ::write_rowid 0
+  set ::rowid_file ""
 
 
   set size [ llength $::argv ]
@@ -193,6 +195,11 @@ proc ::INSERT_DB::parse_args {} {
       }
       "-debug" {
         set ::DEBUG 1
+      }
+      "-write_rowid" {
+        set ::write_rowid 1
+        set ::rowid_file $val
+        incr i 1
       }
       default {
           set ::src_fname [ lindex $::argv $i]
@@ -325,5 +332,12 @@ if { [ string compare $linked_fname "" ] != 0 || [string compare [info script] $
 
   # store in db
   set c_key [ ::INSERT_DB::insert_db ]
+
+  if {$::write_rowid == 1} {
+     set fileId [open $::rowid_file "w"]
+    puts $fileId $c_key
+    close $fileId
+  }
+
   puts "Success. Circuit ROWID = $c_key"
 }

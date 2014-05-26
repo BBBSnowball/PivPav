@@ -58,6 +58,8 @@ proc parse_args {} {
   set ::db_flag 0
   set ::db_flag_val ""
   set ::log_flag 0
+  set ::write_rowid 0
+  set ::rowid_file ""
 
   set size [ llength $::argv ]
   for {set i 0} {$i < $size} {incr i 1} {
@@ -90,6 +92,11 @@ proc parse_args {} {
         set ::db_flag 1
         set ::CONFIG::db_file $val
         set_full_path db_file
+        incr i 1
+      }
+      "-write_rowid" {
+        set ::write_rowid 1
+        set ::rowid_file $val
         incr i 1
       }
       default {
@@ -397,6 +404,13 @@ proc db_put {} {
   ::PARSER::parse $::db_api_file_full
   set ::no_files_flag 0
   set rowid [ ::INSERT_DB::insert_db ]
+
+  if {$::write_rowid == 1} {
+     set fileId [open $::rowid_file "w"]
+    puts $fileId $rowid
+    close $fileId
+  }
+
   puts "* Success, circuit rowid=$rowid"
 }
 
