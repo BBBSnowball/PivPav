@@ -32,7 +32,7 @@ SET verilogsim = False
 SET vhdlsim = True
 # END Project Options
 # BEGIN Select
-SELECT Floating-point family Xilinx,_Inc. 5.0
+SELECT Floating-point xilinx.com:ip:floating_point:6.1
 # END Select
 # BEGIN Parameters
 CSET a_precision_type=Int32
