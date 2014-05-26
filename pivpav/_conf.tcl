@@ -40,7 +40,9 @@ set ::CONFIG::db_debug           0
 namespace eval SET {
   set _devicefamily zynq
   set _device       XC7Z020
-  set _package      clg400
+  # We have a Zynq with clg400 package, but that doesn't have enough pins for
+  # the temporary models used by pivpav.
+  set _package      clg484
   set _speedgrade  -1
 }
 # not supported for Zynq
