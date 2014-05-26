@@ -133,7 +133,7 @@ set ::CONFIG::add_cust_cir_db_api_file    "db_store.txt"
 # wrapper configuration
 # ===================================================================== #
 set ::CONFIG::wrapper_bin_file          "bin/wrapper"
-set ::CONFIG::wrapper_clock_freq        "25"
+set ::CONFIG::wrapper_clock_freq        "10"
 
 # ===================================================================== #
 # reports configuration
