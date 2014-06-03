@@ -20,5 +20,8 @@ find_library(SQLITE3_LIB      NAMES sqlite3 )
 
 add_library(libgetOperator SHARED libgetOperator)
 set_target_properties(libgetOperator      PROPERTIES OUTPUT_NAME "getOperator")
+add_library(libgetOperatorStatic STATIC libgetOperator)
+set_target_properties(libgetOperatorStatic PROPERTIES OUTPUT_NAME "getOperatorStatic")
+set_target_properties(libgetOperatorStatic PROPERTIES COMPILE_FLAGS "-fPIC")
 add_executable(test_getOperator main)
 target_link_libraries(test_getOperator libgetOperator libsql libhw_write ${SQLITE3_LIB} libutils)
