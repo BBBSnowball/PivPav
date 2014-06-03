@@ -29,6 +29,39 @@
 #include <cstdlib>
 #include "Operator.hpp"
 
+Operator::Operator(const Operator& o)
+{
+    numberOfInputs_             = o.numberOfInputs_;
+    numberOfOutputs_            = o.numberOfOutputs_;
+    hasRegistersWithoutReset_   = o.hasRegistersWithoutReset_;
+    hasRegistersWithAsyncReset_ = o.hasRegistersWithAsyncReset_;
+    hasRegistersWithSyncReset_  = o.hasRegistersWithSyncReset_;
+    pipelineDepth_              = o.pipelineDepth_;
+    currentCycle_               = o.currentCycle_;
+    uniqueName_      = o.uniqueName_;
+    isSequential_    = o.isSequential_;
+    commentedName_   = o.commentedName_;
+    copyrightString_ = o.copyrightString_;
+    signalList_      = o.signalList_;
+    portMap_         = o.portMap_;
+    outDelayMap      = o.outDelayMap;
+    signalMap_       = o.signalMap_;
+    ioList_          = o.ioList_;
+    testCaseSignals_ = o.testCaseSignals_;
+    subComponents_   = o.subComponents_;
+}
+
+Operator::Operator(){
+	numberOfInputs_             = 0;
+	numberOfOutputs_            = 0;
+	hasRegistersWithoutReset_   = false;
+	hasRegistersWithAsyncReset_ = false;
+	hasRegistersWithSyncReset_  = false;
+	pipelineDepth_              = 0;
+	currentCycle_                      = 0;
+}
+
+Operator::~Operator() { }
 
 void 
 Operator::addPort(

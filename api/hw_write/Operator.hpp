@@ -21,43 +21,16 @@ class Operator
 
 public:
   // copy constructor
-  Operator(const Operator &o)  {
-    numberOfInputs_             = o.numberOfInputs_;
-    numberOfOutputs_            = o.numberOfOutputs_;
-    hasRegistersWithoutReset_   = o.hasRegistersWithoutReset_;
-    hasRegistersWithAsyncReset_ = o.hasRegistersWithAsyncReset_;
-    hasRegistersWithSyncReset_  = o.hasRegistersWithSyncReset_;
-    pipelineDepth_              = o.pipelineDepth_;
-    currentCycle_               = o.currentCycle_;
-    uniqueName_      = o.uniqueName_;
-    isSequential_    = o.isSequential_;
-    commentedName_   = o.commentedName_;
-    copyrightString_ = o.copyrightString_;
-    signalList_      = o.signalList_;
-    portMap_         = o.portMap_;
-    outDelayMap      = o.outDelayMap;
-    signalMap_       = o.signalMap_;
-    ioList_          = o.ioList_;
-    testCaseSignals_ = o.testCaseSignals_;
-    subComponents_   = o.subComponents_;
-}
+  Operator(const Operator &o);
 
 	/** Default constructor.
 	 * Creates a default operator instance. No parameters are passed to this constructor.
 	 */
-	Operator(){
-		numberOfInputs_             = 0;
-		numberOfOutputs_            = 0;
-		hasRegistersWithoutReset_   = false;
-		hasRegistersWithAsyncReset_ = false;
-		hasRegistersWithSyncReset_  = false;
-		pipelineDepth_              = 0;
-		currentCycle_                      = 0;
-	}
+	Operator();
 	
 	/** Operator Destructor.
 	 */	
-	virtual ~Operator() {}
+	virtual ~Operator();
 
 
  /*****************************************************************************/
@@ -357,7 +330,7 @@ public:
 	 * @param o the stream where the licence is going to be outputted
 	 * @param authorsYears the names of the authors and the years of their contributions
 	 */
-	void licence(std::ostream& o, std::string authorsYears);
+	virtual void licence(std::ostream& o, std::string authorsYears);
 
 
 	/**  Output the licence, using copyrightString_
@@ -368,7 +341,7 @@ public:
 	/** DEPRECATED  Output the standard library paperwork 
 	 * @param o the stream where the libraries will be written to
 	 */
-	static void stdLibs(std::ostream& o){
+	inline static void stdLibs(std::ostream& o){
 		o<<"library ieee;\nuse ieee.std_logic_1164.all;"<<endl 
 		 <<"use ieee.std_logic_arith.all;"<<endl
 		 <<"use ieee.std_logic_unsigned.all;"<<endl 
