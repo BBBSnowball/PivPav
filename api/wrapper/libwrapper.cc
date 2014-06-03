@@ -1,7 +1,17 @@
 #include "wrapper.h"
 
+#include <set>
+
+bool shouldCombine(Signal *s) {
+  if (s->type() != Signal::out || s->width() != 1)
+    return false;
+
+  //TODO
+  return false;
+}
+
 // Operator uses copy ctor - Wrapper is an exact copy of &o
-WRAPPER::WRAPPER(Operator const &o, int regs_flag=0) : Operator(o) {
+WRAPPER::WRAPPER(Operator const &o, int regs_flag, int combine_signals_flag) : Operator(o) {
     Operator *t = const_cast<Operator *>(&o);
 
     vhdl << endl << "-- wire: (*)entity input & output ports, with (*)signals" << endl;
@@ -30,14 +40,30 @@ WRAPPER::WRAPPER(Operator const &o, int regs_flag=0) : Operator(o) {
       }
     }
 
-    // connect rest of the signals
+    std::set<Signal*> combined_signals;
     int size = t->getIOListSize();
+    for (int i=0; i<size; i++ ) {
+      Signal *s = t->getIOListSignal(i);
+      if (shouldCombine(s))
+        combined_signals.insert(s);
+    }
+    if (combined_signals.size() < 2)
+      combined_signals.clear();
+    else {
+      //vhdl << ""
+      //TODO
+    }
+
+    // connect rest of the signals
     for (int i=0; i<size; i++ ) {
       Signal *s = t->getIOListSignal(i);
       // skip for clk, rst, ce
       if (s->isClk()) continue;
       // if (s->isRst()) continue;
       // if (s->isCE())  continue;
+
+      if (combined_signals.find(s) != combined_signals.end())
+        continue;
 
       std::string s_name = s->getName();
       // input ports

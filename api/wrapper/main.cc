@@ -4,6 +4,7 @@ using namespace std;
 
 void usage(char *name) {
   std::cerr << name << " <-d filename> <-r > <-u filename> <-n value> <-x value> comp_name" << endl << \
+    "\t -c        = combine some signals to reduce pin count" << endl << \
     "\t -d        = database filename with operators" << endl << \
     "\t -r        = add registers - buffers" << endl << \
     "\t           = when combinatorial - inputs & outputs -> this creates sequential circuit" << endl << \
@@ -38,6 +39,7 @@ void createUCF(std::string fname, std::string clk_name, std::string ns_val="10")
 int main(int argc, char **argv){
   getOperator gop_;
   int opterr,c  = 0;
+  int combine_signals_flag = 0;
   int regs_flag= 0;
   int ucf_flag = 0;
   int ns_flag = 0;
@@ -47,11 +49,14 @@ int main(int argc, char **argv){
   std::string ns_val ("10"); // default value in nanoseconds for ucf file
   int rowid_val = 0;
 
-  while ((c = getopt (argc, argv, "rd:u:n:x:")) != -1)
+  while ((c = getopt (argc, argv, "crd:u:n:x:")) != -1)
     switch (c)
     {
       case 'r':
         regs_flag = 1;
+        break;
+      case 'c':
+        combine_signals_flag = 1;
         break;
       case 'd':
         db_flag = 1;
@@ -96,7 +101,7 @@ int main(int argc, char **argv){
   }
 
   // wrap component
-  WRAPPER top(*t, regs_flag);
+  WRAPPER top(*t, regs_flag, combine_signals_flag);
   top.setName(t->getName() + "_wrapper");
 
   if (ucf_flag == 1) 

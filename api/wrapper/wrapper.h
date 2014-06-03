@@ -15,7 +15,7 @@
 class WRAPPER : public Operator {
   private:
   public:
-    WRAPPER(Operator const &o, int regs_flag); 
+    WRAPPER(Operator const &o, int regs_flag, int combine_signals_flag);
 };
 
 #endif
