@@ -341,12 +341,7 @@ public:
 	/** DEPRECATED  Output the standard library paperwork 
 	 * @param o the stream where the libraries will be written to
 	 */
-	inline static void stdLibs(std::ostream& o){
-		o<<"library ieee;\nuse ieee.std_logic_1164.all;"<<endl 
-		 <<"use ieee.std_logic_arith.all;"<<endl
-		 <<"use ieee.std_logic_unsigned.all;"<<endl 
-		 <<"library work;"<<endl<<endl;
-	};
+	 virtual void stdLibs(std::ostream& o);
 		
 	/** DEPRECATED  Output the VHDL entity of the current operator.
 	 * @param o the stream where the entity will be outputted

@@ -771,6 +771,14 @@ string  Operator::buildVHDLRegisters() {
 }
 
 
+void Operator::stdLibs(std::ostream& o) {
+	o<<"library ieee;\nuse ieee.std_logic_1164.all;"<<endl 
+	 <<"use ieee.std_logic_arith.all;"<<endl
+	 <<"use ieee.std_logic_unsigned.all;"<<endl 
+	 <<"library work;"<<endl<<endl;
+};
+
+
 void Operator::outputVHDL(std::ostream& o, std::string name) {
 
   if(isSequential() && getClkName().compare("") == 0) {
