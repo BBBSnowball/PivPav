@@ -42,7 +42,7 @@ public:
 	 * @param name  the name of the signal
 	 * @param width the number of bits of the signal.
 	 */
-	void addInput  (const std::string name, const int width=1) throw(std::string);
+	void addInput  (const std::string name, const int width=1, bool isBus = false) throw(std::string);
 
   void addPort(
     const std::string name, const int width, 
@@ -60,7 +60,7 @@ public:
 	 * @param width the number of bits of the signal.
 	 * @param numberOfPossibleOutputValues (optional, defaults to 1) set to 2 for a faithfully rounded operator for instance
 	 */	
-	void addOutput(const std::string name, const int width=1, const int numberOfPossibleOutputValues=1)
+	void addOutput(const std::string name, const int width=1, const int numberOfPossibleOutputValues=1, bool isBus = false)
 		throw(std::string);
 	
 

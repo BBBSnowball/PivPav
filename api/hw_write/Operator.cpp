@@ -120,13 +120,13 @@ Operator::addPort(
 	numberOfInputs_ ++;
 }
 
-void Operator::addInput(const std::string name, const int width) throw(std::string) {
+void Operator::addInput(const std::string name, const int width, bool isBus) throw(std::string) {
 	if (signalMap_.find(name) != signalMap_.end()) {
 		std::ostringstream o;
 		o << "ERROR in addInput, signal " << name<< " seems to already exist";
 		throw o.str();
 	}
-	Signal *s = new Signal(name, Signal::in, width) ; // default TTL and cycle OK
+	Signal *s = new Signal(name, Signal::in, width, isBus) ; // default TTL and cycle OK
   s->setClk(0);
   s->setRst(0);
   s->setCE(0);
@@ -137,14 +137,14 @@ void Operator::addInput(const std::string name, const int width) throw(std::stri
 	numberOfInputs_ ++;
 }
 
-void Operator::addOutput(const std::string name, const int width, const int numberOfPossibleOutputValues)
+void Operator::addOutput(const std::string name, const int width, const int numberOfPossibleOutputValues, bool isBus)
 		throw(std::string) {
 	if (signalMap_.find(name) != signalMap_.end()) {
 		std::ostringstream o;
 		o << "ERROR in addInput, signal " << name << " seems to already exist";
 		throw o.str();
 	}
-	Signal *s = new Signal(name, Signal::out, width) ;
+	Signal *s = new Signal(name, Signal::out, width, isBus) ;
 	s -> setNumberOfPossibleValues(numberOfPossibleOutputValues);
 	ioList_.push_back(s);
 	for(int i=0; i<numberOfPossibleOutputValues; i++) 
