@@ -346,7 +346,7 @@ public:
 	/** DEPRECATED  Output the VHDL entity of the current operator.
 	 * @param o the stream where the entity will be outputted
 	 */
-	void outputVHDLEntity(std::ostream& o);
+	virtual void outputVHDLEntity(std::ostream& o);
 	
 	/** DEPRECATED  output all the signal declarations 
 	 * @param o the stream where the signal deca
