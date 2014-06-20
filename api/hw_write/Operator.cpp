@@ -58,7 +58,9 @@ Operator::Operator(){
 	hasRegistersWithAsyncReset_ = false;
 	hasRegistersWithSyncReset_  = false;
 	pipelineDepth_              = 0;
-	currentCycle_                      = 0;
+	currentCycle_               = 0;
+	//TODO This value used to be uninitialized and I don't know what the default should be.
+	isSequential_               = false;
 }
 
 Operator::~Operator() { }
