@@ -1,5 +1,7 @@
 #include "wrapper.h"
 
+#include <getopt.h>
+
 using namespace std;
 
 void usage(char *name) {
